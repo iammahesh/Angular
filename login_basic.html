@@ -1,0 +1,73 @@
+
+	<div class="container" ng-controller="login_ctrl">
+		<div class="col-sm-5">
+			<div class="panel panel-primary">
+				<div class="panel-heading text-center">
+					<b>Login</b>
+				</div>
+	  			<div class="panel-body">
+					<form action="/" name="myform" class="form">
+						<div class="form-group" >
+							<label>User Name</label>
+							<input type="text" class="form-control" name="username" required="true" ng-model="username" placeholder="Name">
+						</div>
+						<div class="form-group">
+							<label>Password</label>
+							<input type="passowrd" class="form-control" name="password" ng-model="password" ng-required="true" placeholder="Passowrd">
+						</div>
+						<input type="button" class="btn btn-success center-block" ng-click="login()" value="Submit" name="">
+						<p class="text-danger" ng-bind="error"></p>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<script>
+	  var app = angular.module("myApp", ['ngRoute'])
+	  
+	  
+	  
+	app.config(function($routeProvider) {
+		$routeProvider
+		.when("/",{
+			templateUrl:"views/login.html",
+			controller:"login_ctrl"
+		})
+		.when("/Home",{
+			resolve:{
+				"check": function($location, $rootScope){
+					if(!$rootScope.loggedIn){
+						$location.path("/")
+					}else{
+
+					}
+				}
+			},
+			templateUrl:"views/home.html",
+			controller:"home_ctrl"
+		})
+		.otherwise({
+			redirectTo:"/"
+		})
+	})
+	  
+	  
+	function login($scope, $location, $rootScope){
+		$scope.login= function(){
+			var username = $scope.username;
+			var password = $scope.password;
+			if(username =='admin' && password =='admin'){
+				$rootScope.loggedIn="true"
+				$location.path("/Home");
+			}else{
+				$scope.error="Hello!, invalid details;"
+			}
+		}
+
+	}
+
+
+	</script>
