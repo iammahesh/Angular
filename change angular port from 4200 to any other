@@ -1,0 +1,7 @@
+if you want to change default port by change in anglular-cli.json
+
+ "defaults": {
+    "serve": {
+      "port": 8080
+    },
+  }
